@@ -2,8 +2,8 @@
   "product": "Cobble",
   "build": 1793036525,
   "size": 191488,
-  "sha256": "aaa2afb636b71e255ae1365933442f97767b0e7ba4ecfd33d07b66b164ba71a1",
+  "sha256": "73fb1b509cf9e9c05c75e5bc316195afc9bf26f59b798bd447560d7180c934d6",
   "file": "cobble_1793036525.dll",
-  "notes": "language switch: arabic/en toggle in the menu bar",
-  "published_at": 1793479647
+  "notes": "ownership: file metadata, copyright mark in menu and loader",
+  "published_at": 1793480292
 }
