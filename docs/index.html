@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1216">
+<title>cobble — control</title>
+<style>
+  :root {
+    --bg:#0f1216; --card:#161b21; --line:#232b34; --text:#e6ebf1;
+    --dim:#8b98a6; --accent:#5b8def; --red:#c0453f; --green:#3f8a5f; --amber:#b08238;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+    -webkit-text-size-adjust:100%}
+  body{padding:18px 14px 40px;max-width:520px;margin:0 auto}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#2a3a55,#151d28);
+    border:1px solid #2c3a4d;display:grid;place-items:center;font-weight:700;font-size:15px;color:#9fb6d8}
+  h1{font-size:17px;margin:0;font-weight:600;letter-spacing:.3px}
+  .sub{font-size:11px;color:var(--dim);margin-top:2px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#3f8a5f;box-shadow:0 0 0 3px rgba(63,138,95,.15)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;margin-bottom:12px}
+  .state{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat .k{font-size:10px;color:var(--dim);letter-spacing:.6px;text-transform:uppercase}
+  .stat .v{font-size:15px;margin-top:3px;font-variant-numeric:tabular-nums;word-break:break-all}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  button{
+    appearance:none;border:1px solid var(--line);background:#1b222a;color:var(--text);
+    border-radius:12px;padding:15px 12px;font-size:14px;font-family:inherit;
+    display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;
+    transition:transform .08s ease,background .15s ease,border-color .15s ease;
+  }
+  button:active{transform:scale(.975);background:#202934}
+  button:disabled{opacity:.45;cursor:default}
+  button .glyph{font-size:18px;line-height:1}
+  button .lbl{font-weight:600}
+  button .hint{font-size:10px;color:var(--dim);font-weight:400}
+  button.wide{grid-column:1 / -1}
+  button.danger{border-color:#3a2427;background:#1d1517}
+  button.danger:active{background:#251a1d}
+  button.safe{border-color:#23392c;background:#141c17}
+  label{display:block;font-size:11px;color:var(--dim);margin-bottom:6px;letter-spacing:.4px}
+  input{width:100%;background:#10151b;border:1px solid var(--line);color:var(--text);
+    border-radius:10px;padding:12px;font-size:13px;font-family:inherit;direction:ltr;text-align:left}
+  input:focus{outline:none;border-color:#33507d}
+  .row{display:flex;gap:8px}
+  .row input{flex:1}
+  .row button{width:auto;flex-direction:row;padding:0 16px;font-size:13px}
+  .status{margin-top:12px;font-size:12px;color:var(--dim);min-height:18px;line-height:1.7}
+  .status b{color:var(--text);font-weight:600}
+  .status a{color:var(--accent);text-decoration:none}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;direction:ltr;display:inline-block}
+  .foot{font-size:10px;color:#5b6672;text-align:center;margin-top:18px;line-height:1.8}
+  .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(12px);
+    background:#202934;border:1px solid #2c3a4d;color:var(--text);padding:11px 16px;border-radius:11px;
+    font-size:12px;opacity:0;pointer-events:none;transition:all .2s ease;max-width:90vw;text-align:center}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">C</div>
+    <div>
+      <h1>cobble control</h1>
+      <div class="sub">GitHub Actions · يعمل 24 ساعة</div>
+    </div>
+  </div>
+  <div class="dot" id="dot" title="cloud"></div>
+</header>
+
+<div class="card">
+  <div class="state">
+    <div class="stat"><div class="k">build</div><div class="v" id="s-build">—</div></div>
+    <div class="stat"><div class="k">payload</div><div class="v" id="s-size">—</div></div>
+    <div class="stat"><div class="k">builds banned</div><div class="v" id="s-bb">—</div></div>
+    <div class="stat"><div class="k">machines banned</div><div class="v" id="s-hb">—</div></div>
+  </div>
+</div>
+
+<div class="grid">
+  <button data-act="update">
+    <span class="glyph">↻</span>
+    <span class="lbl">تحديث</span>
+    <span class="hint">نشر و توقيع الفيد</span>
+  </button>
+  <button data-act="info">
+    <span class="glyph">ℹ</span>
+    <span class="lbl">معلومات</span>
+    <span class="hint">حالة الفيد</span>
+  </button>
+  <button data-act="kill_build" class="danger">
+    <span class="glyph">⛔</span>
+    <span class="lbl">قتل بناء</span>
+    <span class="hint">أوقف كل نسخ رقم بناء</span>
+  </button>
+  <button data-act="kill_hwid" class="danger">
+    <span class="glyph">🖥</span>
+    <span class="lbl">قتل جهاز</span>
+    <span class="hint">حظر جهاز بالـ hwid</span>
+  </button>
+  <button data-act="unban" class="safe wide">
+    <span class="glyph">✓</span>
+    <span class="lbl">فك الحظر</span>
+    <span class="hint">build:N أو hwid:X</span>
+  </button>
+</div>
+
+<div class="card" style="margin-top:12px">
+  <label for="tok">GitHub token (يُحفظ على هذا الجهاز فقط)</label>
+  <div class="row">
+    <input id="tok" type="password" placeholder="github_pat_..." autocomplete="off" spellcheck="false">
+    <button id="save" type="button">حفظ</button>
+  </div>
+  <div class="status" id="status">جاهز.</div>
+</div>
+
+<div class="foot">
+  الحالة الرسمية دايماً في ديسكورد — كل أمر يوصل إشعار هناك.<br>
+  <span class="mono">cobble-feed</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  "use strict";
+  const OWNER = "ee-zvz";
+  const REPO  = "cobble-feed-d401f177";
+  const WORKFLOW = "control.yml";
+  const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
+  const TOKEN_KEY = "cobble.gh";
+  const $ = (id) => document.getElementById(id);
+
+  const state = { token: localStorage.getItem(TOKEN_KEY) || "", busy: false };
+
+  const toast = (msg) => {
+    const el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => el.classList.remove("on"), 2600);
+  };
+
+  const setStatus = (html) => { $("status").innerHTML = html; };
+
+  const headers = (json) => {
+    const h = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+    if (json) h["Content-Type"] = "application/json";
+    if (state.token) h["Authorization"] = `Bearer ${state.token}`;
+    return h;
+  };
+
+  const human = (bytes) => {
+    if (!bytes) return "—";
+    const mb = bytes / 1048576;
+    return mb >= 1 ? mb.toFixed(1) + " MB" : Math.round(bytes / 1024) + " KB";
+  };
+
+  async function refreshState() {
+    try {
+      const res = await fetch(`${API}/contents/manifest.json?ref=main`, {
+        headers: headers(false), cache: "no-store"
+      });
+      if (!res.ok) throw new Error(res.status);
+      const info = await res.json();
+      const text = decodeURIComponent(escape(atob(info.content.replace(/\s/g, ""))));
+      const man = JSON.parse(text);
+      $("s-build").textContent = man.build ?? "—";
+      $("s-size").textContent = human(man.size);
+      $("s-bb").textContent = (man.kill?.builds || []).length;
+      $("s-hb").textContent = (man.kill?.hwids || []).length;
+      $("dot").style.background = "#3f8a5f";
+    } catch (err) {
+      $("dot").style.background = "#b08238";
+      ["s-build", "s-size", "s-bb", "s-hb"].forEach((id) => { $(id).textContent = "—"; });
+    }
+  }
+
+  const label = { update: "التحديث", info: "المعلومات", kill_build: "قتل البناء",
+                  kill_hwid: "قتل الجهاز", unban: "فك الحظر" };
+
+  function askTarget(action) {
+    if (action === "update" || action === "info") return { target: "", note: "" };
+    if (action === "kill_build") {
+      const v = prompt("رقم البناء:", "");
+      return v === null ? null : { target: v.trim(), note: "" };
+    }
+    if (action === "kill_hwid") {
+      const v = prompt("الـ hwid:", "");
+      if (v === null) return null;
+      const n = prompt("ملاحظة (اختياري):", "") ?? "";
+      return { target: v.trim(), note: n.trim() };
+    }
+    const v = prompt("build:1793036525 أو hwid:abcdef", "");
+    return v === null ? null : { target: v.trim(), note: "" };
+  }
+
+  async function dispatch(action, target, note) {
+    const res = await fetch(`${API}/actions/workflows/${WORKFLOW}/dispatches`, {
+      method: "POST",
+      headers: headers(true),
+      body: JSON.stringify({ ref: "main", inputs: { action, target: target || "", note: note || "" } })
+    });
+    if (res.status === 204) return true;
+    const body = await res.text();
+    throw new Error(body.slice(0, 180) || res.status);
+  }
+
+  async function watch(since) {
+    const started = Date.now();
+    let seen = null;
+    while (Date.now() - started < 90000) {
+      await new Promise((r) => setTimeout(r, 3000));
+      try {
+        const res = await fetch(`${API}/actions/workflows/${WORKFLOW}/runs?per_page=1`, {
+          headers: headers(false), cache: "no-store"
+        });
+        if (!res.ok) continue;
+        const data = await res.json();
+        const run = data.workflow_runs?.[0];
+        if (!run) continue;
+        if (new Date(run.created_at).getTime() < since - 5000) continue;
+        seen = run;
+        if (run.status === "completed") {
+          const ok = run.conclusion === "success";
+          const link = `<a href="${run.html_url}" target="_blank" rel="noopener">عرض التنفيذ</a>`;
+          setStatus(ok ? `تم ✓ — ${link}` : `فشل التنفيذ — ${link}`);
+          toast(ok ? "تم" : "فشل");
+          refreshState();
+          return ok;
+        }
+        setStatus(`قيد التنفيذ… (${run.status})`);
+      } catch (e) { /* keep polling */ }
+    }
+    if (seen) {
+      setStatus(`يستغرق وقت أطول — <a href="${seen.html_url}" target="_blank" rel="noopener">تابعه من هنا</a>`);
+    } else {
+      setStatus(`لم يظهر التنفيذ بعد — <a href="https://github.com/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}" target="_blank" rel="noopener">صفحة الأتمتة</a>`);
+    }
+    return false;
+  }
+
+  async function run(action) {
+    if (state.busy) return;
+    if (!state.token) {
+      window.open(`https://github.com/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}`, "_blank", "noopener");
+      setStatus("لا يوجد توكن على هذا الجهاز — فتحت صفحة الأتمتة.");
+      return;
+    }
+    const input = askTarget(action);
+    if (!input) return;
+    if ((action === "kill_build" || action === "kill_hwid") && !input.target) {
+      toast("القيمة مطلوبة"); return;
+    }
+    state.busy = true;
+    document.querySelectorAll("button[data-act]").forEach((b) => { b.disabled = true; });
+    const since = Date.now();
+    setStatus(`إرسال ${label[action]}…`);
+    try {
+      await dispatch(action, input.target, input.note);
+      setStatus(`تم الإرسال — بانتظار التنفيذ…`);
+      await watch(since);
+    } catch (err) {
+      setStatus(`خطأ: <span class="mono">${String(err.message || err).slice(0, 160)}</span>`);
+      toast("فشل الإرسال");
+    } finally {
+      state.busy = false;
+      document.querySelectorAll("button[data-act]").forEach((b) => { b.disabled = false; });
+    }
+  }
+
+  document.querySelectorAll("button[data-act]").forEach((btn) => {
+    btn.addEventListener("click", () => run(btn.dataset.act));
+  });
+
+  $("save").addEventListener("click", () => {
+    const value = $("tok").value.trim();
+    if (!value) { toast("أدخل التوكن"); return; }
+    state.token = value;
+    localStorage.setItem(TOKEN_KEY, value);
+    $("tok").value = "";
+    toast("تم الحفظ");
+    refreshState();
+  });
+
+  if (state.token) $("tok").placeholder = "محفوظ — أدخل واحد جديد للتغيير";
+  refreshState();
+  setInterval(refreshState, 60000);
+})();
+</script>
+</body>
+</html>

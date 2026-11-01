@@ -1,0 +1,40 @@
+name: cobble bans
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cobble-control
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: poll the ban inbox
+        env:
+          COBBLE_KEY: ${{ secrets.COBBLE_KEY }}
+        run: python control.py --action poll_bans
+
+      - name: commit
+        run: |
+          git config user.name cobble
+          git config user.email cobble@users.noreply.github.com
+          git add manifest.json kill.json
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "bans: apply inbox"
+            git push
+          fi

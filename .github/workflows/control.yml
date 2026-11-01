@@ -1,0 +1,64 @@
+name: cobble control
+
+run-name: "${{ inputs.action }} ${{ inputs.target }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "what to do"
+        type: choice
+        required: true
+        default: info
+        options:
+          - update
+          - kill_build
+          - kill_hwid
+          - unban
+          - info
+      target:
+        description: "build number, hwid, or build:N / hwid:X for unban"
+        type: string
+        required: false
+        default: ""
+      note:
+        description: "note shown in discord"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cobble-control
+  cancel-in-progress: false
+
+jobs:
+  control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: apply
+        env:
+          COBBLE_KEY: ${{ secrets.COBBLE_KEY }}
+        run: |
+          python control.py --action "${{ inputs.action }}" \
+            --target "${{ inputs.target }}" --note "${{ inputs.note }}"
+
+      - name: commit
+        run: |
+          git config user.name cobble
+          git config user.email cobble@users.noreply.github.com
+          git add manifest.json kill.json
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "control: ${{ inputs.action }} ${{ inputs.target }}"
+            git push
+          fi
