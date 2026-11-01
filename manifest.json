@@ -5,20 +5,20 @@
   "sha256": "30b2dc59e85ca103bf720f6c1b4b4d3eda41be612bcb76bd222ea18e4f151693",
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
-  "notes": "loader 1.6 - pending record on reuse",
-  "published_at": 1793551678,
+  "notes": "loader 1.7 - anti debug and header wipe",
+  "published_at": 1793554856,
   "kill": {
     "builds": [],
     "hwids": []
   },
-  "loader_sha256": "d53cbeda7412571ddab28e4af6131936b9bbfee7086c60dba1eea7b8c8ffcb9c",
-  "loader_sig": "a3ae923d358f6031a344374e18b3602c31c7eefd7c40d93595f225fd10eb985087cb325524b83c4835c7258f961d1eebf095d08175dd5908875ba62a04d0b900",
+  "loader_sha256": "8711fc005033d5dfce891a66fd29d9cad642ca6e74c1154d9f4ef67d72bfdd1b",
+  "loader_sig": "15ba5e2bafa7735d93b6270aa8b9fad9c0623f6822c318a5d6daaba77cdf7ea214f93869296baadec31da87a39826cd3bc81ab395be75cf81c6530c3fb1f0004",
   "loader_install": {
     "product": "Cobble",
     "build": 1793036525,
-    "exe_sha256": "d53cbeda7412571ddab28e4af6131936b9bbfee7086c60dba1eea7b8c8ffcb9c",
-    "sig": "98945ef8b780f0923e7e75f546f48679f585b377ab256f7b5baa843ff27fc308fdb4f7090be0a81dd7c69c7ccac8cb63bc270b8a7bc318e315ada73bad5b880c"
+    "exe_sha256": "8711fc005033d5dfce891a66fd29d9cad642ca6e74c1154d9f4ef67d72bfdd1b",
+    "sig": "f45f6402354b59e8aab0a35f49d2bba77f6fb09998606d1acf7a4e7dcd50555e80bcb7af13db8ac558510f0336eaa46f54f66cd87ae2925e6083db4da1e5c802"
   },
-  "sig": "bc6450d1e27a7cd0562945fa0fe7c7266673274a390c9703d8cbc7221d3ac11050954275c504af7b7eeee8fecf0711b0633eb902e7c1b591020623140caaec02",
-  "feed_sig": "4d17e9f0ae5f89038bb246955fa82f8cc6fce265e83daf738238803a9791325b070c140676e975c9125a06d47f8a7ab7ac23226c7f2ad7f16cb9569f0ccc9c02"
+  "sig": "12e2a31534ec8b2bc456e4cc75e2d3912caecda176ade40aba573c947b3a2838aa1e247a98afbf75e5c87174f99b83ce0e6da0b9ccf164f3c6fa7e85a52c7409",
+  "feed_sig": "b41dbb626962e1a4450370cf860a877c1de324ed44dde6995fafd34652e9cfba75df30e89695aeb3f08ab5f1884913c895f61e0e5f85b6a0ed3f917013f7ec04"
 }
