@@ -45,10 +45,12 @@ def mask(value: str) -> None:
 
 
 def load() -> tuple[dict, dict]:
-    with open(MANIFEST, "r", encoding="utf-8") as fh:
+    # utf-8-sig: a file saved by powershell starts with a BOM, and json.load
+    # refuses the whole document over it
+    with open(MANIFEST, "r", encoding="utf-8-sig") as fh:
         man = json.load(fh)
     try:
-        with open(KILL, "r", encoding="utf-8") as fh:
+        with open(KILL, "r", encoding="utf-8-sig") as fh:
             kill = json.load(fh)
     except (OSError, ValueError):
         kill = dict(man.get("kill") or {})

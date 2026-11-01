@@ -1,13 +1,7 @@
 {
   "builds": [],
-  "hwids": [
-    "inboxtest01",
-    "safeinbox01"
-  ],
-  "notes": {
-    "inboxtest01": "inbox test",
-    "safeinbox01": "loader function test"
-  },
+  "hwids": [],
+  "notes": {},
   "inbox_ids": [
     "fDKtgC76gpAn",
     "oBw6ZmUHGrQs"
