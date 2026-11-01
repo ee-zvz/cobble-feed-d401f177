@@ -38,6 +38,7 @@ jobs:
       - name: apply
         env:
           COBBLE_KEY: ${{ secrets.COBBLE_KEY }}
+          COBBLE_HOOK: ${{ secrets.COBBLE_HOOK }}
           COBBLE_ACTION: ${{ inputs.action }}
           COBBLE_TARGET: ${{ inputs.target }}
           COBBLE_NOTE: ${{ inputs.note }}

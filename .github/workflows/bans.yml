@@ -25,6 +25,7 @@ jobs:
       - name: poll the ban inbox
         env:
           COBBLE_KEY: ${{ secrets.COBBLE_KEY }}
+          COBBLE_HOOK: ${{ secrets.COBBLE_HOOK }}
         run: python control.py --action poll_bans
 
       - name: commit

@@ -1,0 +1,37 @@
+name: cobble heartbeat
+
+# GitHub disables every scheduled workflow in a public repository after 60
+# days with no commit, and a cron run does not count as activity. A quiet
+# upstream month would kill the ban poller silently, which is exactly the
+# month it matters. One small commit a week keeps the schedule alive.
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cobble-heartbeat
+  cancel-in-progress: false
+
+jobs:
+  beat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: stamp
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > heartbeat.txt
+          git config user.name cobble
+          git config user.email cobble@users.noreply.github.com
+          git add heartbeat.txt
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "heartbeat: keep the schedule alive"
+            git push
+          fi

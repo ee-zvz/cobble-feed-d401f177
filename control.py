@@ -81,7 +81,7 @@ def notify(man: dict, title: str, fields: list[dict], color: int = 0x5865F2) -> 
     if os.environ.get("COBBLE_QUIET"):
         print(f"discord: suppressed ({title})")
         return
-    address = str(man.get("webhook") or "")
+    address = str(os.environ.get("COBBLE_HOOK") or man.get("webhook") or "")
     if not address.startswith("https://"):
         return
     payload = {
