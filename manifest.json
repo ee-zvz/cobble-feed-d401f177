@@ -5,21 +5,15 @@
   "sha256": "30b2dc59e85ca103bf720f6c1b4b4d3eda41be612bcb76bd222ea18e4f151693",
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
-  "notes": "clean test bans",
-  "published_at": 1793537021,
+  "notes": "cloud control panel + ban inbox",
+  "published_at": 1793495505,
   "kill": {
     "builds": [],
-    "hwids": [],
-    "notes": {},
-    "inbox_ids": [
-      "fDKtgC76gpAn",
-      "oBw6ZmUHGrQs"
-    ],
-    "inbox_since": 1793536079
+    "hwids": []
   },
   "webhook": "https://discord.com/api/webhooks/1566309431082221658/lsMQS_XaxGjZg3gY5VCHuNsLuh3za34BCxuywVuyyOrwIuPhqrgu9o8kBeFrQtf9iDTn",
-  "loader_sha256": "b6b297ec6cbc31ae433e2b09206a754af3d2dd1249dec04b267a99a942a6121e",
-  "loader_sig": "5c4480393bb7812ee5572050e7f9581c38140bf7b4d01ad81099ff01389af7aa3380a43ce4544b67903a1d89d114c9d8c1dd289be20e11a4c24f4387fb2bf500",
-  "sig": "24d80aac039b67bc67d9c719d4f0cde1c68d25ab51d938bc0d475b6a82b15495175f48ecbefb9e7ab1ada4e222b090c9a932a3dd17736d703016dd70422a9505",
-  "feed_sig": "88a8d42180eaad44e9f773cc217d77fb0ddd40577f9fa0cc8ff0dff7b3cd7b695d822390d783af5e1313517eef342987ebac4000e1730b4dc1bca372568c360c"
+  "loader_sha256": "4b73f3a45947e4b3c1e4275bcfb663fb7ea5a81043d1066973dafa627efae5c6",
+  "loader_sig": "e53a23c1d3ee2c7f13b1a51e7392c82e34cafe183f5cc06ec3296173170fd5cbb1083ad89dc64c70f2770ca5330d704b08f76b16d008d94c3c0509fc08e7a10b",
+  "sig": "da6eb54579b2e821a191b14a971ac0b64894348897aed81f99d1149effa8c82f098a7e8237fed35fa219081bb7cf87c94d715c79e8564fb87d2e45b2591aa104",
+  "feed_sig": "d1007d395c00f107e68e19bf433f414815255e973c0e98761f58a63db48caeb597ec5871574e2e098dac452239c54eda7d8bb715d9a4ad243ad13e413e6c9b02"
 }
