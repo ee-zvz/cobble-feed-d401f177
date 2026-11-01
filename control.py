@@ -1,4 +1,4 @@
-﻿"""Cloud control for the Cobble feed - runs inside GitHub Actions.
+"""Cloud control for the Cobble feed - runs inside GitHub Actions.
 
 The repo it runs in is the feed itself: manifest.json + the encrypted payload.
 Every action edits the signed manifest and commits it, so the loader sees the
@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 import urllib.request
@@ -36,6 +37,14 @@ KEY_FILE = os.path.join(KEY_DIR, "cobble_feed.key")
 
 # public inbox the loader writes to when it catches a replaced webhook link
 INBOX = "https://ntfy.sh/cobble-9f24c7e1a83b5d60"
+
+# The topic is public, so anyone can post to it. These bounds are what keeps a
+# stranger from turning the kill list into a denial of service: a real request
+# is a 32 hex hwid, the list has a ceiling, and one poll can only add a handful.
+HWID_RE = re.compile(r"^[0-9a-f]{32}$")
+MAX_HWIDS = 200
+MAX_BUILDS = 200
+MAX_PER_POLL = 5
 
 
 def mask(value: str) -> None:
@@ -118,8 +127,14 @@ def state(man: dict, kill: dict) -> str:
 
 def add_ban(kill: dict, kind: str, value: str, note: str) -> bool:
     key = "builds" if kind == "build" else "hwids"
+    limit = MAX_BUILDS if kind == "build" else MAX_HWIDS
     item = int(value) if kind == "build" else str(value).lower()
     if item in [int(x) if kind == "build" else str(x).lower() for x in kill[key]]:
+        return False
+    if len(kill[key]) >= limit:
+        # a runaway list is a denial of service against every loader: the
+        # manifest is fetched by everyone and grows with it
+        print(f"kill list is full ({len(kill[key])}/{limit}), {item} not added")
         return False
     kill[key].append(item)
     kill["notes"][str(item)] = note or "revoked"
@@ -255,19 +270,37 @@ def main() -> None:
         messages, fresh, handled = poll_inbox(
             int(kill.get("inbox_since") or 0), list(kill.get("inbox_ids") or [])
         )
+        accepted = 0
+        rejected = 0
+        capped = 0
         for request in messages:
-            hwid = str(request["hwid"]).strip()
-            if not hwid:
+            hwid = str(request.get("hwid", "")).strip().lower()
+            if not HWID_RE.match(hwid):
+                rejected += 1
+                continue
+            if accepted >= MAX_PER_POLL or len(kill["hwids"]) >= MAX_HWIDS:
+                capped += 1
                 continue
             mask(hwid)
             note = str(request.get("reason", "webhook link replaced"))[:200]
             if add_ban(kill, "hwid", hwid, note):
+                accepted += 1
                 changed = True
                 print(f"banned {hwid} ({note})")
                 notify(man, "auto ban",
                        [{"name": "hwid", "value": hwid, "inline": False},
                         {"name": "reason", "value": note, "inline": False}],
                        0x8A6D3B)
+        if rejected:
+            print(f"ignored {rejected} malformed request(s)")
+        if capped:
+            print(f"capped: {capped} request(s) not applied "
+                  f"(list {len(kill['hwids'])}/{MAX_HWIDS}, per poll {MAX_PER_POLL})")
+            notify(man, "ban inbox flood",
+                   [{"name": "ignored", "value": str(capped), "inline": True},
+                    {"name": "list size", "value": f"{len(kill['hwids'])}/{MAX_HWIDS}", "inline": True},
+                    {"name": "note", "value": "the inbox is public - check for spam", "inline": False}],
+                   0xB03A48)
         if handled != list(kill.get("inbox_ids") or []):
             kill["inbox_ids"] = handled
             changed = True
