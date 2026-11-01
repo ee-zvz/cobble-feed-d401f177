@@ -83,6 +83,7 @@ def notify(man: dict, title: str, fields: list[dict], color: int = 0x5865F2) -> 
         return
     address = str(os.environ.get("COBBLE_HOOK") or man.get("webhook") or "")
     if not address.startswith("https://"):
+        print("discord: no hook configured")
         return
     payload = {
         "username": "cobble control",
