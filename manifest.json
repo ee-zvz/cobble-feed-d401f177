@@ -5,14 +5,17 @@
   "sha256": "30b2dc59e85ca103bf720f6c1b4b4d3eda41be612bcb76bd222ea18e4f151693",
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
-  "notes": "ownership marks + language button guarded",
-  "published_at": 1793484870,
+  "notes": "kill list updated",
+  "published_at": 1793485400,
   "kill": {
-    "builds": [],
+    "builds": [
+      1
+    ],
     "hwids": []
   },
+  "webhook": "https://discord.com/api/webhooks/1566309431082221658/lsMQS_XaxGjZg3gY5VCHuNsLuh3za34BCxuywVuyyOrwIuPhqrgu9o8kBeFrQtf9iDTn",
   "loader_sha256": "9590f5ae46aee9e3e159b7dd475f38fb767aa2e4e3e4518fd2db3c6ac9adb611",
   "loader_sig": "2560b5b73c7ebad2afc57447f3bbbaf3706cb5f8f5a97fcfa182874740044df505f7e00b6dcb996cde8ba1097c7d11e979a980b6d9470ad8ca71dc7a31644c0e",
   "sig": "d6b09d487a9020fa3cbcaf202395a101983e4d512ba8a1695ecdfbb816425522a96dcc2eebbf045a0175115ebe42ab8276d61b004fae19fe1bfa98624443450f",
-  "feed_sig": "98ed93d5e0a1ae3cc22d79fdcc6d7246d625a2e5921eb92b7a45cf6b2e15b3caa0a979ee660c120f865e20861c4295324b5b1bd3f8a8275ff1d2f6efe53eaa04"
+  "feed_sig": "4b5a3b0d9868ada0309e400e3d8f9ec46f7062b84bc477df0d3242917b0ec7038ea71e722c387b8b41ac8998f356b28ecaf68d98ee259c40cd0ac6d5e0b7aa0d"
 }
