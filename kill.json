@@ -1,7 +1,11 @@
 {
   "builds": [],
-  "hwids": [],
-  "notes": {},
+  "hwids": [
+    "wfapitest01"
+  ],
+  "notes": {
+    "wfapitest01": "one-button test"
+  },
   "inbox_ids": [
     "fDKtgC76gpAn",
     "oBw6ZmUHGrQs"

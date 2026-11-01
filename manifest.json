@@ -6,11 +6,15 @@
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
   "notes": "clean test bans",
-  "published_at": 1793536957,
+  "published_at": 1793536984,
   "kill": {
     "builds": [],
-    "hwids": [],
-    "notes": {},
+    "hwids": [
+      "wfapitest01"
+    ],
+    "notes": {
+      "wfapitest01": "one-button test"
+    },
     "inbox_ids": [
       "fDKtgC76gpAn",
       "oBw6ZmUHGrQs"
@@ -21,5 +25,5 @@
   "loader_sha256": "b6b297ec6cbc31ae433e2b09206a754af3d2dd1249dec04b267a99a942a6121e",
   "loader_sig": "5c4480393bb7812ee5572050e7f9581c38140bf7b4d01ad81099ff01389af7aa3380a43ce4544b67903a1d89d114c9d8c1dd289be20e11a4c24f4387fb2bf500",
   "sig": "24d80aac039b67bc67d9c719d4f0cde1c68d25ab51d938bc0d475b6a82b15495175f48ecbefb9e7ab1ada4e222b090c9a932a3dd17736d703016dd70422a9505",
-  "feed_sig": "88a8d42180eaad44e9f773cc217d77fb0ddd40577f9fa0cc8ff0dff7b3cd7b695d822390d783af5e1313517eef342987ebac4000e1730b4dc1bca372568c360c"
+  "feed_sig": "39a2959fb0a4e7d037b7f4c0369818e6e858f710a6460ed8dc460aeb2c056af1caba0dae16fd276414a45b93e13d41260aa2a66156352af92e106826bd2e9b04"
 }
