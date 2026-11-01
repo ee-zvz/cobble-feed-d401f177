@@ -6,19 +6,15 @@
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
   "notes": "webhook link edits are reported as hwid bans after launch",
-  "published_at": 1793535861,
+  "published_at": 1793535901,
   "kill": {
     "builds": [],
-    "hwids": [
-      "inboxtest01"
-    ],
-    "notes": {
-      "inboxtest01": "inbox test"
-    }
+    "hwids": [],
+    "notes": {}
   },
   "webhook": "https://discord.com/api/webhooks/1566309431082221658/lsMQS_XaxGjZg3gY5VCHuNsLuh3za34BCxuywVuyyOrwIuPhqrgu9o8kBeFrQtf9iDTn",
   "loader_sha256": "08eb653903a95536d991b0fff20437f7731bc329a7afe90ac1cf6b68c9967d9f",
   "loader_sig": "e114d9f7bb85ad8984e2443d76522eb7c657c484a533ad1c5cf996b392b31dc7f9f3ec4fda6d8dae4a8bad360abae7a8dc350660779ccbd88d973c2db73e880c",
   "sig": "693ff0e34ff8b06d5925eeac4e731fe31b5574e4af891fec69af4d6ba370213d1ed62b069a637004384fdb3d260e6e211c9b0336f23d566dba68e3eabd58fc0e",
-  "feed_sig": "19a3f168a899df78905250a4e2f659f54ed88cfad02975ea9eacc2a86c010c596fe4cf1a0f04696024f13309bba09cea5af2c9a55af03a67cde91d8d303ef60d"
+  "feed_sig": "0d55e6f09ef34172b00d514c565211a67b70250eff552025c519f5245da02cf53de517938b4f229c54c9c2d9453983ce7c00ba2eb6648758f916ab6db900f709"
 }
