@@ -6,15 +6,13 @@
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
   "notes": "cloud control panel + ban inbox",
-  "published_at": 1793536092,
+  "published_at": 1793536236,
   "kill": {
     "builds": [],
     "hwids": [
-      "inboxtest01",
       "safeinbox01"
     ],
     "notes": {
-      "inboxtest01": "inbox test",
       "safeinbox01": "loader function test"
     }
   },
@@ -22,5 +20,5 @@
   "loader_sha256": "b6b297ec6cbc31ae433e2b09206a754af3d2dd1249dec04b267a99a942a6121e",
   "loader_sig": "5c4480393bb7812ee5572050e7f9581c38140bf7b4d01ad81099ff01389af7aa3380a43ce4544b67903a1d89d114c9d8c1dd289be20e11a4c24f4387fb2bf500",
   "sig": "24d80aac039b67bc67d9c719d4f0cde1c68d25ab51d938bc0d475b6a82b15495175f48ecbefb9e7ab1ada4e222b090c9a932a3dd17736d703016dd70422a9505",
-  "feed_sig": "4403787f75fc522fc75cc25c6e8783c67950f513f0c304d8fa82e34f53d6c1b4a2a63dd84872fe2d7a31f3a69b5334135732329a625cf44ba0c55c6574758203"
+  "feed_sig": "dbb605f96453da77672c8b95f87b7d29167405d242b14b447cc06c7b4faa1a19ee8f23daba41a2a274cf42b1798307bcad9b35edf46eea53d121b4022af05a0c"
 }
