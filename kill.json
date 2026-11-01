@@ -1,16 +1,16 @@
-﻿{
-    "builds":  [
-
-               ],
-    "hwids":  [
-
-              ],
-    "notes":  {
-
-              },
-    "inbox_ids":  [
-                      "fDKtgC76gpAn",
-                      "oBw6ZmUHGrQs"
-                  ],
-    "inbox_since":  1793536079
+{
+  "builds": [],
+  "hwids": [
+    "inboxtest01",
+    "safeinbox01"
+  ],
+  "notes": {
+    "inboxtest01": "inbox test",
+    "safeinbox01": "loader function test"
+  },
+  "inbox_ids": [
+    "fDKtgC76gpAn",
+    "oBw6ZmUHGrQs"
+  ],
+  "inbox_since": 1793536079
 }
