@@ -171,10 +171,11 @@
 
   async function refreshLast() {
     try {
-      const res = await fetch(`${API}/actions/runs?per_page=1`, { cache: "no-store" });
+      const res = await fetch(`${API}/actions/runs?per_page=20`, { cache: "no-store" });
       if (!res.ok) throw new Error(res.status);
       const data = await res.json();
-      const run = data.workflow_runs?.[0];
+      // pages deployments fire on every commit - keep them out of the log line
+      const run = (data.workflow_runs || []).find((r) => !/pages/i.test(r.name || ""));
       if (!run) { $("last").textContent = "آخر تنفيذ: —"; return; }
       const label = (run.name || "").replace(/^api\s*/, "");
       let tag = `<span class="tag">${run.status}</span>`;
