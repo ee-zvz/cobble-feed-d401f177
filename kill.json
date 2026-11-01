@@ -1,9 +1,5 @@
 {
   "builds": [],
-  "hwids": [
-    "safeinbox01"
-  ],
-  "notes": {
-    "safeinbox01": "loader function test"
-  }
+  "hwids": [],
+  "notes": {}
 }
