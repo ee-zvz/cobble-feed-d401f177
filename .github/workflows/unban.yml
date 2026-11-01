@@ -1,0 +1,20 @@
+name: unban
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "build:1793036525 or hwid:93b08a..."
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/apply.yml
+    with:
+      action: unban
+      target: ${{ inputs.target }}
+    secrets: inherit

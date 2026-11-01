@@ -1,0 +1,26 @@
+name: kill build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: "build number (e.g. 1793036525)"
+        type: string
+        required: true
+      note:
+        description: "note (optional)"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/apply.yml
+    with:
+      action: kill_build
+      target: ${{ inputs.build }}
+      note: ${{ inputs.note }}
+    secrets: inherit

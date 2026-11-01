@@ -1,0 +1,14 @@
+name: update
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/apply.yml
+    with:
+      action: update
+    secrets: inherit

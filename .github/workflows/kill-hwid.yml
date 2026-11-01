@@ -1,0 +1,26 @@
+name: kill hwid
+
+on:
+  workflow_dispatch:
+    inputs:
+      hwid:
+        description: "machine hwid (from the discord alert)"
+        type: string
+        required: true
+      note:
+        description: "note (optional)"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    uses: ./.github/workflows/apply.yml
+    with:
+      action: kill_hwid
+      target: ${{ inputs.hwid }}
+      note: ${{ inputs.note }}
+    secrets: inherit

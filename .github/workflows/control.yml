@@ -1,6 +1,6 @@
 name: cobble control
 
-run-name: "${{ inputs.action }} ${{ inputs.target }}"
+run-name: "api ${{ inputs.action }} ${{ inputs.target }}"
 
 on:
   workflow_dispatch:
@@ -47,11 +47,16 @@ jobs:
       - name: apply
         env:
           COBBLE_KEY: ${{ secrets.COBBLE_KEY }}
+          COBBLE_ACTION: ${{ inputs.action }}
+          COBBLE_TARGET: ${{ inputs.target }}
+          COBBLE_NOTE: ${{ inputs.note }}
         run: |
-          python control.py --action "${{ inputs.action }}" \
-            --target "${{ inputs.target }}" --note "${{ inputs.note }}"
+          python control.py --action "$COBBLE_ACTION" \
+            --target "$COBBLE_TARGET" --note "$COBBLE_NOTE"
 
       - name: commit
+        env:
+          COBBLE_ACTION: ${{ inputs.action }}
         run: |
           git config user.name cobble
           git config user.email cobble@users.noreply.github.com
@@ -59,6 +64,5 @@ jobs:
           if git diff --cached --quiet; then
             echo "no change"
           else
-            git commit -m "control: ${{ inputs.action }} ${{ inputs.target }}"
-            git push
+            git commit -m "control: $COBBLE_ACTION" && git push
           fi

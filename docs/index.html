@@ -22,44 +22,39 @@
     border:1px solid #2c3a4d;display:grid;place-items:center;font-weight:700;font-size:15px;color:#9fb6d8}
   h1{font-size:17px;margin:0;font-weight:600;letter-spacing:.3px}
   .sub{font-size:11px;color:var(--dim);margin-top:2px}
-  .dot{width:7px;height:7px;border-radius:50%;background:#3f8a5f;box-shadow:0 0 0 3px rgba(63,138,95,.15)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(63,138,95,.15)}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     padding:14px;margin-bottom:12px}
   .state{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .stat .k{font-size:10px;color:var(--dim);letter-spacing:.6px;text-transform:uppercase}
   .stat .v{font-size:15px;margin-top:3px;font-variant-numeric:tabular-nums;word-break:break-all}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  button{
-    appearance:none;border:1px solid var(--line);background:#1b222a;color:var(--text);
-    border-radius:12px;padding:15px 12px;font-size:14px;font-family:inherit;
-    display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;
+  a.btn{
+    text-decoration:none;color:var(--text);
+    border:1px solid var(--line);background:#1b222a;
+    border-radius:12px;padding:15px 12px;font-size:14px;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
     transition:transform .08s ease,background .15s ease,border-color .15s ease;
+    -webkit-tap-highlight-color:transparent;
   }
-  button:active{transform:scale(.975);background:#202934}
-  button:disabled{opacity:.45;cursor:default}
-  button .glyph{font-size:18px;line-height:1}
-  button .lbl{font-weight:600}
-  button .hint{font-size:10px;color:var(--dim);font-weight:400}
-  button.wide{grid-column:1 / -1}
-  button.danger{border-color:#3a2427;background:#1d1517}
-  button.danger:active{background:#251a1d}
-  button.safe{border-color:#23392c;background:#141c17}
-  label{display:block;font-size:11px;color:var(--dim);margin-bottom:6px;letter-spacing:.4px}
-  input{width:100%;background:#10151b;border:1px solid var(--line);color:var(--text);
-    border-radius:10px;padding:12px;font-size:13px;font-family:inherit;direction:ltr;text-align:left}
-  input:focus{outline:none;border-color:#33507d}
-  .row{display:flex;gap:8px}
-  .row input{flex:1}
-  .row button{width:auto;flex-direction:row;padding:0 16px;font-size:13px}
-  .status{margin-top:12px;font-size:12px;color:var(--dim);min-height:18px;line-height:1.7}
-  .status b{color:var(--text);font-weight:600}
-  .status a{color:var(--accent);text-decoration:none}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;direction:ltr;display:inline-block}
+  a.btn:active{transform:scale(.975);background:#202934}
+  a.btn .glyph{font-size:18px;line-height:1}
+  a.btn .lbl{font-weight:600}
+  a.btn .hint{font-size:10px;color:var(--dim);font-weight:400;text-align:center}
+  a.btn.wide{grid-column:1 / -1}
+  a.btn.danger{border-color:#3a2427;background:#1d1517}
+  a.btn.danger:active{background:#251a1d}
+  a.btn.safe{border-color:#23392c;background:#141c17}
+  .note{font-size:11px;color:var(--dim);line-height:1.9;margin-top:2px}
+  .note b{color:var(--text);font-weight:600}
+  .last{font-size:11px;color:var(--dim);line-height:1.8}
+  .last .tag{display:inline-block;padding:1px 7px;border-radius:6px;background:#1f2a36;
+    color:#9fb6d8;font-size:10px;margin-left:4px}
+  .last .ok{background:#16261c;color:#7fc79a}
+  .last .bad{background:#2a1719;color:#d08585}
+  .last a{color:var(--accent);text-decoration:none}
   .foot{font-size:10px;color:#5b6672;text-align:center;margin-top:18px;line-height:1.8}
-  .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(12px);
-    background:#202934;border:1px solid #2c3a4d;color:var(--text);padding:11px 16px;border-radius:11px;
-    font-size:12px;opacity:0;pointer-events:none;transition:all .2s ease;max-width:90vw;text-align:center}
-  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;direction:ltr;display:inline-block}
 </style>
 </head>
 <body>
@@ -84,40 +79,42 @@
 </div>
 
 <div class="grid">
-  <button data-act="update">
+  <a class="btn" data-wf="update.yml" href="#">
     <span class="glyph">↻</span>
     <span class="lbl">تحديث</span>
     <span class="hint">نشر و توقيع الفيد</span>
-  </button>
-  <button data-act="info">
+  </a>
+  <a class="btn" data-wf="info.yml" href="#">
     <span class="glyph">ℹ</span>
     <span class="lbl">معلومات</span>
     <span class="hint">حالة الفيد</span>
-  </button>
-  <button data-act="kill_build" class="danger">
+  </a>
+  <a class="btn danger" data-wf="kill-build.yml" href="#">
     <span class="glyph">⛔</span>
     <span class="lbl">قتل بناء</span>
     <span class="hint">أوقف كل نسخ رقم بناء</span>
-  </button>
-  <button data-act="kill_hwid" class="danger">
+  </a>
+  <a class="btn danger" data-wf="kill-hwid.yml" href="#">
     <span class="glyph">🖥</span>
     <span class="lbl">قتل جهاز</span>
     <span class="hint">حظر جهاز بالـ hwid</span>
-  </button>
-  <button data-act="unban" class="safe wide">
+  </a>
+  <a class="btn safe wide" data-wf="unban.yml" href="#">
     <span class="glyph">✓</span>
     <span class="lbl">فك الحظر</span>
     <span class="hint">build:N أو hwid:X</span>
-  </button>
+  </a>
 </div>
 
 <div class="card" style="margin-top:12px">
-  <label for="tok">GitHub token (يُحفظ على هذا الجهاز فقط)</label>
-  <div class="row">
-    <input id="tok" type="password" placeholder="github_pat_..." autocomplete="off" spellcheck="false">
-    <button id="save" type="button">حفظ</button>
+  <div class="note">
+    كل زر يفتح صفحة التشغيل. اضغط <b>Run workflow</b> الأخضر — وبس.
+    ما فيه توكن ولا تسجيل جديد، حسابك في GitHub يكفي.
   </div>
-  <div class="status" id="status">جاهز.</div>
+</div>
+
+<div class="card">
+  <div class="last" id="last">آخر تنفيذ: —</div>
 </div>
 
 <div class="foot">
@@ -125,36 +122,14 @@
   <span class="mono">cobble-feed</span>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
 (() => {
   "use strict";
   const OWNER = "ee-zvz";
   const REPO  = "cobble-feed-d401f177";
-  const WORKFLOW = "control.yml";
   const API = `https://api.github.com/repos/${OWNER}/${REPO}`;
-  const TOKEN_KEY = "cobble.gh";
+  const ACTIONS = `https://github.com/${OWNER}/${REPO}/actions/workflows`;
   const $ = (id) => document.getElementById(id);
-
-  const state = { token: localStorage.getItem(TOKEN_KEY) || "", busy: false };
-
-  const toast = (msg) => {
-    const el = $("toast");
-    el.textContent = msg;
-    el.classList.add("on");
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => el.classList.remove("on"), 2600);
-  };
-
-  const setStatus = (html) => { $("status").innerHTML = html; };
-
-  const headers = (json) => {
-    const h = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
-    if (json) h["Content-Type"] = "application/json";
-    if (state.token) h["Authorization"] = `Bearer ${state.token}`;
-    return h;
-  };
 
   const human = (bytes) => {
     if (!bytes) return "—";
@@ -162,11 +137,15 @@
     return mb >= 1 ? mb.toFixed(1) + " MB" : Math.round(bytes / 1024) + " KB";
   };
 
+  document.querySelectorAll("a.btn").forEach((a) => {
+    a.href = `${ACTIONS}/${a.dataset.wf}`;
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+
   async function refreshState() {
     try {
-      const res = await fetch(`${API}/contents/manifest.json?ref=main`, {
-        headers: headers(false), cache: "no-store"
-      });
+      const res = await fetch(`${API}/contents/manifest.json?ref=main`, { cache: "no-store" });
       if (!res.ok) throw new Error(res.status);
       const info = await res.json();
       const text = decodeURIComponent(escape(atob(info.content.replace(/\s/g, ""))));
@@ -182,116 +161,39 @@
     }
   }
 
-  const label = { update: "التحديث", info: "المعلومات", kill_build: "قتل البناء",
-                  kill_hwid: "قتل الجهاز", unban: "فك الحظر" };
+  const ago = (iso) => {
+    const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+    if (s < 60) return "قبل " + s + " ثانية";
+    if (s < 3600) return "قبل " + Math.round(s / 60) + " دقيقة";
+    if (s < 86400) return "قبل " + Math.round(s / 3600) + " ساعة";
+    return "قبل " + Math.round(s / 86400) + " يوم";
+  };
 
-  function askTarget(action) {
-    if (action === "update" || action === "info") return { target: "", note: "" };
-    if (action === "kill_build") {
-      const v = prompt("رقم البناء:", "");
-      return v === null ? null : { target: v.trim(), note: "" };
-    }
-    if (action === "kill_hwid") {
-      const v = prompt("الـ hwid:", "");
-      if (v === null) return null;
-      const n = prompt("ملاحظة (اختياري):", "") ?? "";
-      return { target: v.trim(), note: n.trim() };
-    }
-    const v = prompt("build:1793036525 أو hwid:abcdef", "");
-    return v === null ? null : { target: v.trim(), note: "" };
-  }
-
-  async function dispatch(action, target, note) {
-    const res = await fetch(`${API}/actions/workflows/${WORKFLOW}/dispatches`, {
-      method: "POST",
-      headers: headers(true),
-      body: JSON.stringify({ ref: "main", inputs: { action, target: target || "", note: note || "" } })
-    });
-    if (res.status === 204) return true;
-    const body = await res.text();
-    throw new Error(body.slice(0, 180) || res.status);
-  }
-
-  async function watch(since) {
-    const started = Date.now();
-    let seen = null;
-    while (Date.now() - started < 90000) {
-      await new Promise((r) => setTimeout(r, 3000));
-      try {
-        const res = await fetch(`${API}/actions/workflows/${WORKFLOW}/runs?per_page=1`, {
-          headers: headers(false), cache: "no-store"
-        });
-        if (!res.ok) continue;
-        const data = await res.json();
-        const run = data.workflow_runs?.[0];
-        if (!run) continue;
-        if (new Date(run.created_at).getTime() < since - 5000) continue;
-        seen = run;
-        if (run.status === "completed") {
-          const ok = run.conclusion === "success";
-          const link = `<a href="${run.html_url}" target="_blank" rel="noopener">عرض التنفيذ</a>`;
-          setStatus(ok ? `تم ✓ — ${link}` : `فشل التنفيذ — ${link}`);
-          toast(ok ? "تم" : "فشل");
-          refreshState();
-          return ok;
-        }
-        setStatus(`قيد التنفيذ… (${run.status})`);
-      } catch (e) { /* keep polling */ }
-    }
-    if (seen) {
-      setStatus(`يستغرق وقت أطول — <a href="${seen.html_url}" target="_blank" rel="noopener">تابعه من هنا</a>`);
-    } else {
-      setStatus(`لم يظهر التنفيذ بعد — <a href="https://github.com/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}" target="_blank" rel="noopener">صفحة الأتمتة</a>`);
-    }
-    return false;
-  }
-
-  async function run(action) {
-    if (state.busy) return;
-    if (!state.token) {
-      window.open(`https://github.com/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}`, "_blank", "noopener");
-      setStatus("لا يوجد توكن على هذا الجهاز — فتحت صفحة الأتمتة.");
-      return;
-    }
-    const input = askTarget(action);
-    if (!input) return;
-    if ((action === "kill_build" || action === "kill_hwid") && !input.target) {
-      toast("القيمة مطلوبة"); return;
-    }
-    state.busy = true;
-    document.querySelectorAll("button[data-act]").forEach((b) => { b.disabled = true; });
-    const since = Date.now();
-    setStatus(`إرسال ${label[action]}…`);
+  async function refreshLast() {
     try {
-      await dispatch(action, input.target, input.note);
-      setStatus(`تم الإرسال — بانتظار التنفيذ…`);
-      await watch(since);
+      const res = await fetch(`${API}/actions/runs?per_page=1`, { cache: "no-store" });
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      const run = data.workflow_runs?.[0];
+      if (!run) { $("last").textContent = "آخر تنفيذ: —"; return; }
+      const label = (run.name || "").replace(/^api\s*/, "");
+      let tag = `<span class="tag">${run.status}</span>`;
+      if (run.status === "completed") {
+        tag = run.conclusion === "success"
+          ? '<span class="tag ok">success</span>'
+          : `<span class="tag bad">${run.conclusion}</span>`;
+      }
+      $("last").innerHTML =
+        `آخر تنفيذ: <b>${label}</b> ${tag}<br>` +
+        `<a href="${run.html_url}" target="_blank" rel="noopener">${ago(run.created_at)}</a>`;
     } catch (err) {
-      setStatus(`خطأ: <span class="mono">${String(err.message || err).slice(0, 160)}</span>`);
-      toast("فشل الإرسال");
-    } finally {
-      state.busy = false;
-      document.querySelectorAll("button[data-act]").forEach((b) => { b.disabled = false; });
+      $("last").textContent = "آخر تنفيذ: —";
     }
   }
 
-  document.querySelectorAll("button[data-act]").forEach((btn) => {
-    btn.addEventListener("click", () => run(btn.dataset.act));
-  });
-
-  $("save").addEventListener("click", () => {
-    const value = $("tok").value.trim();
-    if (!value) { toast("أدخل التوكن"); return; }
-    state.token = value;
-    localStorage.setItem(TOKEN_KEY, value);
-    $("tok").value = "";
-    toast("تم الحفظ");
-    refreshState();
-  });
-
-  if (state.token) $("tok").placeholder = "محفوظ — أدخل واحد جديد للتغيير";
   refreshState();
-  setInterval(refreshState, 60000);
+  refreshLast();
+  setInterval(() => { refreshState(); refreshLast(); }, 20000);
 })();
 </script>
 </body>
