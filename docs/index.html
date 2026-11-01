@@ -161,12 +161,15 @@
     }
   }
 
-  const ago = (iso) => {
-    const s = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
-    if (s < 60) return "قبل " + s + " ثانية";
-    if (s < 3600) return "قبل " + Math.round(s / 60) + " دقيقة";
-    if (s < 86400) return "قبل " + Math.round(s / 3600) + " ساعة";
-    return "قبل " + Math.round(s / 86400) + " يوم";
+  // a local clock string beats "x minutes ago": the machine clock can drift
+  // and a negative delta would read as 0
+  const clock = (iso) => {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mm = String(d.getMinutes()).padStart(2, "0");
+    const sameDay = d.toDateString() === new Date().toDateString();
+    return sameDay ? `${hh}:${mm}` : `${d.getDate()}/${d.getMonth() + 1} ${hh}:${mm}`;
   };
 
   async function refreshLast() {
@@ -190,7 +193,7 @@
       }
       $("last").innerHTML =
         `آخر تنفيذ: <b>${label}</b> ${tag}<br>` +
-        `<a href="${run.html_url}" target="_blank" rel="noopener">${ago(run.created_at)}</a>`;
+        `<a href="${run.html_url}" target="_blank" rel="noopener">${clock(run.created_at)}</a>`;
     } catch (err) {
       $("last").textContent = "آخر تنفيذ: —";
     }
