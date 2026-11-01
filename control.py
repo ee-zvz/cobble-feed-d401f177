@@ -135,18 +135,29 @@ def drop_ban(kill: dict, kind: str, value: str) -> bool:
     return len(kill[key]) != before
 
 
-def poll_inbox() -> list[dict]:
+def poll_inbox(since: int, seen: list[str]) -> tuple[list[dict], int, list[str]]:
+    """Every ban request we have not handled yet.
+
+    ntfy keeps messages for 12 h and `since` is inclusive, so the pointer is
+    rewound ten minutes on every poll and message ids do the dedupe. That way
+    neither a repeated poll nor a lift can resurrect an old request, and two
+    requests inside the same second both land.
+    """
+    lower = max(0, int(since) - 600) if since else 0
+    stamp = f"since={lower}" if lower else "since=all"
     try:
         request = urllib.request.Request(
-            f"{INBOX}/json?poll=1&since=all",
+            f"{INBOX}/json?poll=1&{stamp}",
             headers={"User-Agent": "cobble-control"},
         )
         with urllib.request.urlopen(request, timeout=15.0) as resp:
             raw = resp.read().decode("utf-8", "replace")
     except Exception as exc:  # noqa: BLE001 - offline is not fatal
         print(f"inbox unreachable: {exc}")
-        return []
+        return [], int(since), list(seen)
     out = []
+    highest = int(since)
+    handled = list(seen)
     for line in raw.splitlines():
         line = line.strip()
         if not line:
@@ -157,13 +168,23 @@ def poll_inbox() -> list[dict]:
             continue
         if event.get("event") != "message":
             continue
+        highest = max(highest, int(event.get("time") or 0))
+        ident = str(event.get("id") or "")
+        if ident and ident in handled:
+            continue
+        if event.get("title") != "ban request":
+            if ident:
+                handled.append(ident)
+            continue
         try:
             body = json.loads(event.get("message", "{}"))
         except ValueError:
-            continue
+            body = {}
+        if ident:
+            handled.append(ident)
         if body.get("hwid"):
             out.append(body)
-    return out
+    return out, highest, handled[-200:]
 
 
 def main() -> None:
@@ -228,7 +249,10 @@ def main() -> None:
                    [{"name": kind, "value": value, "inline": False}], 0x2F6B4F)
 
     elif args.action == "poll_bans":
-        for request in poll_inbox():
+        messages, fresh, handled = poll_inbox(
+            int(kill.get("inbox_since") or 0), list(kill.get("inbox_ids") or [])
+        )
+        for request in messages:
             hwid = str(request["hwid"]).strip()
             if not hwid:
                 continue
@@ -241,6 +265,13 @@ def main() -> None:
                        [{"name": "hwid", "value": hwid, "inline": False},
                         {"name": "reason", "value": note, "inline": False}],
                        0x8A6D3B)
+        if handled != list(kill.get("inbox_ids") or []):
+            kill["inbox_ids"] = handled
+            changed = True
+        if fresh > int(kill.get("inbox_since") or 0):
+            kill["inbox_since"] = fresh
+            changed = True
+            print(f"inbox pointer {fresh}")
 
     if changed:
         save(man, kill)
