@@ -1,5 +1,9 @@
 {
   "builds": [],
-  "hwids": [],
-  "notes": {}
+  "hwids": [
+    "inboxtest01"
+  ],
+  "notes": {
+    "inboxtest01": "inbox test"
+  }
 }
