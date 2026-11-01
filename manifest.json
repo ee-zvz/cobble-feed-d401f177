@@ -5,14 +5,20 @@
   "sha256": "30b2dc59e85ca103bf720f6c1b4b4d3eda41be612bcb76bd222ea18e4f151693",
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
-  "notes": "cloud control panel + ban inbox",
-  "published_at": 1793539525,
+  "notes": "loader self update",
+  "published_at": 1793550652,
   "kill": {
     "builds": [],
     "hwids": []
   },
-  "loader_sha256": "df3a21a395b1817c8fee970cc5634d36dc6de7d73c141171b1e30ee95c402921",
-  "loader_sig": "bdb25c539c925e89af3bc1449aaed0ee22075e0e4b41f7620b6402c81ab6e7b9bd6cf20b76181994b64ee2c59ed0313e6877d615fce43ef74caafc5114243d02",
-  "sig": "48e0a367296423a989c1b377adb4fc755d28047a9464f25f7e5ae2143450b18f3cd9a40f04fbc40fa4582767d6cc5e2ff5d1d3f6ed01951aec5ab6ecebd08c02",
-  "feed_sig": "0d949a838b45fc244655f1935df4f4e9e7a6e3cb66ec94d68a8678b5867cb2f6630a0326882afa5803fa26067eba98c750b0ee27733f4dd47b20311339e97d04"
+  "loader_sha256": "04e07ad6f6e24e5b7ad2e8b74df267f87a1cb5b9e265dfd479656e0848cb7f5d",
+  "loader_sig": "a645e0fb6116d752235a449c8c356d1fee8f242b4b5acebf9a5cbf98adcd3ea01e1c0d148b384dd98e9ee85bc0f7507a11fd75de24963b4abd84c4e83f3b7109",
+  "loader_install": {
+    "product": "Cobble",
+    "build": 1793036525,
+    "exe_sha256": "04e07ad6f6e24e5b7ad2e8b74df267f87a1cb5b9e265dfd479656e0848cb7f5d",
+    "sig": "fd4550f836e68b929306b471daa86712ac2cf79311105d6e078c9fc46cd72feafb085157463b010da376daa766a84ff3e75b022b82bc49fb2bcb9ac346cf6007"
+  },
+  "sig": "76fc3b6547f38e84544aed07ed9cfeebb0cc4a9b8a38aa66077d73e2605722f597cd62afcbc1546519e5526ae8cc50a3f3e866caaefc11e72459be64ad3c560c",
+  "feed_sig": "be6715780d93177e19e69c8fe4546c549e98cb19df321c55343d735c2f51074fb3a6c069a9557264e3e594d54a99a0803b1b699d2377306894decfda1674eb04"
 }
