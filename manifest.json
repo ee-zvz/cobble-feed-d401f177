@@ -6,14 +6,19 @@
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
   "notes": "webhook link edits are reported as hwid bans after launch",
-  "published_at": 1793492177,
+  "published_at": 1793535703,
   "kill": {
     "builds": [],
-    "hwids": []
+    "hwids": [
+      "cloudtest0001"
+    ],
+    "notes": {
+      "cloudtest0001": "cloud round trip"
+    }
   },
   "webhook": "https://discord.com/api/webhooks/1566309431082221658/lsMQS_XaxGjZg3gY5VCHuNsLuh3za34BCxuywVuyyOrwIuPhqrgu9o8kBeFrQtf9iDTn",
   "loader_sha256": "08eb653903a95536d991b0fff20437f7731bc329a7afe90ac1cf6b68c9967d9f",
   "loader_sig": "e114d9f7bb85ad8984e2443d76522eb7c657c484a533ad1c5cf996b392b31dc7f9f3ec4fda6d8dae4a8bad360abae7a8dc350660779ccbd88d973c2db73e880c",
   "sig": "693ff0e34ff8b06d5925eeac4e731fe31b5574e4af891fec69af4d6ba370213d1ed62b069a637004384fdb3d260e6e211c9b0336f23d566dba68e3eabd58fc0e",
-  "feed_sig": "0d55e6f09ef34172b00d514c565211a67b70250eff552025c519f5245da02cf53de517938b4f229c54c9c2d9453983ce7c00ba2eb6648758f916ab6db900f709"
+  "feed_sig": "c492b3e9d92d18ab754a60f61c19d8574f2f7f5a08a9a2c058e2665a62f75ddae22094bdeaa11da9012ec7d33d7a308378db4116535196c49503317684b82c0f"
 }

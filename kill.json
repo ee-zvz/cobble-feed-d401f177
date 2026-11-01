@@ -1,1 +1,9 @@
-﻿{"builds": [], "hwids": [], "notes": {}}
+{
+  "builds": [],
+  "hwids": [
+    "cloudtest0001"
+  ],
+  "notes": {
+    "cloudtest0001": "cloud round trip"
+  }
+}
