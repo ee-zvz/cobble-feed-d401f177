@@ -6,16 +6,15 @@
   "file": "cobble_1793036525.dat",
   "enc": "shake256-ctr",
   "notes": "cloud control panel + ban inbox",
-  "published_at": 1793492893,
+  "published_at": 1793536001,
   "kill": {
     "builds": [],
-    "hwids": [
-      "testmerge1"
-    ]
+    "hwids": [],
+    "notes": {}
   },
   "webhook": "https://discord.com/api/webhooks/1566309431082221658/lsMQS_XaxGjZg3gY5VCHuNsLuh3za34BCxuywVuyyOrwIuPhqrgu9o8kBeFrQtf9iDTn",
   "loader_sha256": "b6b297ec6cbc31ae433e2b09206a754af3d2dd1249dec04b267a99a942a6121e",
   "loader_sig": "5c4480393bb7812ee5572050e7f9581c38140bf7b4d01ad81099ff01389af7aa3380a43ce4544b67903a1d89d114c9d8c1dd289be20e11a4c24f4387fb2bf500",
   "sig": "24d80aac039b67bc67d9c719d4f0cde1c68d25ab51d938bc0d475b6a82b15495175f48ecbefb9e7ab1ada4e222b090c9a932a3dd17736d703016dd70422a9505",
-  "feed_sig": "dd81072f2e47b0694a5221ddcf899a5986004c8e97505a92f82cf1390f769b38f91cb4af92751f99b6faa7c6d983f53db4f57e3917b5eefd31ec5660e55b1102"
+  "feed_sig": "88a8d42180eaad44e9f773cc217d77fb0ddd40577f9fa0cc8ff0dff7b3cd7b695d822390d783af5e1313517eef342987ebac4000e1730b4dc1bca372568c360c"
 }

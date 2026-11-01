@@ -1,9 +1,5 @@
 {
   "builds": [],
-  "hwids": [
-    "testmerge1"
-  ],
-  "notes": {
-    "testmerge1": "merge test"
-  }
+  "hwids": [],
+  "notes": {}
 }
